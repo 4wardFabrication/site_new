@@ -1,0 +1,19 @@
+{
+  "name": "4wardfabrications.site",
+  "version": "1.0.0",
+  "description": "4wardFabrications main site. Written in Node and KoaJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4wardFabrication/site_new.git"
+  },
+  "author": "Anthony Sceresini <me@ardel.io> (http://ardel.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4wardFabrication/site_new/issues"
+  },
+  "homepage": "https://github.com/4wardFabrication/site_new"
+}
