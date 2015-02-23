@@ -8,7 +8,8 @@
     "start": "node --harmony app/koa.js"
   },
   "engines": {
-    "node": "0.11.13"
+    "node": "0.11.13",
+    "npm": "2.6.x"
   },
   "repository": {
     "type": "git",
