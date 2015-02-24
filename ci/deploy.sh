@@ -12,7 +12,7 @@ function verify_or_create_app() {
 function set_node_env() {
   local _APP=$1
   local _NODE_ENV=$2
-  heroku config:set "NODE_ENV=$_NODE_ENV" --app "$_APP"
+  heroku config:get NODE_ENV --app "$_APP" | grep "^$_NODE_ENV$" || heroku config:set "NODE_ENV=$_NODE_ENV" --app "$_APP"
 }
 
 function deploy_to_heroku() {
