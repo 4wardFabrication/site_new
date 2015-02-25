@@ -4,7 +4,7 @@
   "description": "4wardFabrications main site. Written in Node and KoaJS.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./test.sh",
     "start": "node --harmony app/koa.js"
   },
   "engines": {

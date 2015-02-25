@@ -1,2 +1,3 @@
 #!/bin/bash
-../test.sh
+npm install
+npm test
