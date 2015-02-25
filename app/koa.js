@@ -15,6 +15,23 @@ var fs = require('fs'),
 app.use(logger());
 
 app.use(function *(next) {
+  var candidatePath = root + this.path;
+  try {
+    var stats = fs.statSync(candidatePath);
+    if(stats.isDirectory()) {
+      this.body = jade.renderFile(candidatePath + '/index.jade');
+    }
+
+    if(stats.isFile()) {
+      yield next;
+    }
+  } catch(err) {
+    this.status = 404;
+    this.body = 'Not Found';
+  }
+});
+
+app.use(function *(next) {
   if(env === 'production' && path.extname(this.path) === '.js') {
     if(Object.keys(fileCache).indexOf(this.path) == -1)
       fileCache[this.path] = UglifyJS.minify(root + this.path).code;
@@ -25,20 +42,8 @@ app.use(function *(next) {
 });
 
 app.use(function *() {
-  var candidatePath = __dirname + '/www' + this.path;
-  try {
-    var stats = fs.statSync(candidatePath);
-    if(stats.isDirectory()) {
-      this.body = jade.renderFile(candidatePath + '/index.jade');
-    }
-
-    if(stats.isFile()) {
-      yield send(this, candidatePath);
-    }
-  } catch(err) {
-    this.status = 404;
-    this.body = 'Not Found';
-  }
+  var candidatePath = root + this.path;
+  yield send(this, candidatePath);
 });
 
 app.listen(port);
