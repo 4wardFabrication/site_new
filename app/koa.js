@@ -42,8 +42,7 @@ app.use(function *(next) {
 });
 
 app.use(function *() {
-  var candidatePath = root + this.path;
-  yield send(this, candidatePath);
+  yield send(this, root + this.path);
 });
 
 app.listen(port);
