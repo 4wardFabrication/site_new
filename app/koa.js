@@ -38,6 +38,7 @@ if(env === 'production') {
       if(Object.keys(fileCache).indexOf(this.path) == -1) {
         fileCache[this.path] = UglifyJS.minify(root + this.path).code;
       }
+      this.type = 'text/javascript; charset=utf-8';
       this.body = fileCache[this.path];
     } else {
       yield next;
