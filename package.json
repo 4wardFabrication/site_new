@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/4wardFabrication/site_new",
   "dependencies": {
+    "cssmin": "^0.4.2",
     "jade": "^1.9.2",
     "koa": "^0.18.0",
     "koa-logger": "^1.2.2",

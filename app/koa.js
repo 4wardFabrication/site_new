@@ -5,8 +5,9 @@ var fs = require('fs'),
     send = require('koa-send'),
     koa = require('koa'),
     UglifyJS = require('uglify-js'),
-    app = koa(),
+    CSSMin = require('cssmin'),
 
+    app = koa(),
     env = process.env.NODE_ENV || 'development',
     root = __dirname + '/www',
     port = process.env.PORT || 3000,
@@ -31,16 +32,31 @@ app.use(function *(next) {
   }
 });
 
-app.use(function *(next) {
-  if(env === 'production' && path.extname(this.path) === '.js') {
-    if(Object.keys(fileCache).indexOf(this.path) == -1) {
-      fileCache[this.path] = UglifyJS.minify(root + this.path).code;
+if(env === 'production') {
+  app.use(function *(next) {
+    if(path.extname(this.path) === '.js') {
+      if(Object.keys(fileCache).indexOf(this.path) == -1) {
+        fileCache[this.path] = UglifyJS.minify(root + this.path).code;
+      }
+      this.body = fileCache[this.path];
+    } else {
+      yield next;
     }
-    this.body = fileCache[this.path];
-  } else {
-    yield next;
-  }
-});
+  });
+
+  app.use(function *(next) {
+    if(path.extname(this.path) === '.css') {
+      if(Object.keys(fileCache).indexOf(this.path) == -1) {
+        var css = fs.readFileSync(root + this.path, 'utf8');
+        fileCache[this.path] = CSSMin(css);
+      }
+      this.type = 'text/css; charset=utf-8';
+      this.body = fileCache[this.path];
+    } else {
+      yield next;
+    }
+  });
+}
 
 app.use(function *() {
   yield send(this, root + this.path);
