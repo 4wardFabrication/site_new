@@ -1,12 +1,22 @@
+section#header {
+  background: #777 url("/assets/images/backgrounds/homepage_jumbotron_grey2.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 section.jumbotron {
   margin: 0 auto;
   text-align: center;
   padding: 100px 0 100px 0;
 }
 
+section.jumbotron .spacer {
+  height: 50px;
+}
+
 section.jumbotron h1 {
   font-size: 3.2em;
-  font-weight: 100;
+  font-weight: 200;
   letter-spacing: -1px;
   line-height: 1.2em;
 }
@@ -20,4 +30,12 @@ section.jumbotron h2 {
 section.jumbotron h1, section.jumbotron h2 {
   padding-bottom: 0;
   margin-bottom: 0;
+}
+
+section.jumbotron.dark h1 {
+  color: #fff;
+}
+
+section.jumbotron.dark h2 {
+  color: rgba(255,255,255,.8);
 }
