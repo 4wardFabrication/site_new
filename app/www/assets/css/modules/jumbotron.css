@@ -1,0 +1,23 @@
+section.jumbotron {
+  margin: 0 auto;
+  text-align: center;
+  padding: 100px 0 100px 0;
+}
+
+section.jumbotron h1 {
+  font-size: 3.2em;
+  font-weight: 100;
+  letter-spacing: -1px;
+  line-height: 1.2em;
+}
+
+section.jumbotron h2 {
+  font-size: 1.35em;
+  font-weight: 100;
+  line-height: 1.6em;
+}
+
+section.jumbotron h1, section.jumbotron h2 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
