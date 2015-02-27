@@ -1,0 +1,5 @@
+section#header {
+  background: #777 url("/assets/images/backgrounds/homepage_jumbotron_grey2.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
