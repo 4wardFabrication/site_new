@@ -1,0 +1,7 @@
+div#alerts .alert-success,
+div#alerts .alert-info,
+div#alerts .alert-danger {
+  display: none;
+  border: none;
+  border-radius: 2px;
+}
