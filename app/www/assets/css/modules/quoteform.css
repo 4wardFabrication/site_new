@@ -1,0 +1,43 @@
+section#quoteform {
+  background: #e0e0e0;
+}
+
+section#quoteform form {
+  margin-top: 20px;
+}
+
+section#quoteform button {
+  display: inline-block;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-weight: bold;
+  background: #f06544;
+  color: #fff;
+}
+
+section#quoteform .has-error input, section#quoteform .has-error input textarea {
+  border-color: #a94442;
+}
+
+section#quoteform input {
+  height: 47px;
+}
+
+section#quoteform input, section#quoteform textarea {
+  border: 1px solid #c7c7c7;
+  border-radius: 2px;
+  padding: 10px 15px;
+  -webkit-appearance: none;
+  -webkit-rtl-ordering: logical;
+  -webkit-user-select: text;
+  margin: 0em;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  text-align: start;
+  font-size: 1em;
+}

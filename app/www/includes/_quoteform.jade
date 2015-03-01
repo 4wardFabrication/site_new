@@ -1,0 +1,26 @@
+.jumbotron.light
+  .container-fluid
+    .row
+      .col-sm-10.col-sm-offset-1
+        h1.
+          Interested?
+        h2.
+          Send us a message with some details about your request and we will call you back!
+  .container-fluid
+    a(name='quoteform')
+    form
+      input#subject.form-control(type='hidden', name='subject', value='quote')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            input#from.form-control(type='email', name='from', placeholder='Your email', onchange='quoteForm.validateFrom();')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            textarea#body.form-control(name='body', rows='5', placeholder='Your message...', onchange='quoteForm.validateBody();')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            button.btn.btn-block.btn-default.btn-lg(type='button', onClick='quoteForm.send();').
+              Send
+        .col-md-8.col-md-offset-2
