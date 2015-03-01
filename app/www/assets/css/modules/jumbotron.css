@@ -12,6 +12,10 @@
   line-height: 1.2em;
 }
 
+.jumbotron h1 span {
+  font-weight: 500;
+}
+
 .jumbotron h2 {
   font-size: 1.35em;
   font-weight: 100;
