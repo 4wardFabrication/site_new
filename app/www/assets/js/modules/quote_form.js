@@ -1,6 +1,6 @@
-function QuoteForm(url, alerts) {
+function QuoteForm(element, url, alerts) {
+  this.element = element;
   this.apiUrl = url;
-  this.element = $('#quoteform');
   this.fields = {
     subject: this.element.find('#subject'),
     from: this.element.find('#from'),

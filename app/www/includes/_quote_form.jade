@@ -31,3 +31,6 @@
               span
             .alert.alert-danger(role='alert')
               span
+script(type='text/javascript').
+  var alerts = new Alerts($('div#alerts'));
+  var quoteForm = new QuoteForm($('section#quoteform'), "/api/emailer", alerts);
