@@ -19,7 +19,8 @@ section#quoteform button {
   color: #fff;
 }
 
-section#quoteform .has-error input, section#quoteform .has-error input textarea {
+section#quoteform .has-error input,
+section#quoteform .has-error textarea {
   border-color: #a94442;
 }
 
@@ -27,7 +28,8 @@ section#quoteform input {
   height: 47px;
 }
 
-section#quoteform input, section#quoteform textarea {
+section#quoteform input,
+section#quoteform textarea {
   border: 1px solid #c7c7c7;
   border-radius: 2px;
   padding: 10px 15px;
