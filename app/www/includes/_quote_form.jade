@@ -13,15 +13,15 @@
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            input#from.form-control(type='email', name='from', placeholder='Your email', onchange='quoteForm.validateFrom();')
+            input#from.form-control(type='email', name='from', placeholder='Your email')
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            textarea#body.form-control(name='body', rows='5', placeholder='Your message...', onchange='quoteForm.validateBody();')
+            textarea#body.form-control(name='body', rows='5', placeholder='Your message...')
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            button.btn.btn-block.btn-default.btn-lg(type='button', onClick='quoteForm.send();').
+            button#send.btn.btn-block.btn-default.btn-lg(type='button').
               Send
         .col-md-8.col-md-offset-2
           #alerts
@@ -31,6 +31,3 @@
               span
             .alert.alert-danger(role='alert')
               span
-script(type='text/javascript').
-  var alerts = new Alerts($('div#alerts'));
-  var quoteForm = new QuoteForm($('section#quoteform'), "/api/emailer", alerts);
