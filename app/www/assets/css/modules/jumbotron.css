@@ -22,7 +22,8 @@
   line-height: 1.6em;
 }
 
-.jumbotron h1, .jumbotron h2 {
+.jumbotron h1,
+.jumbotron h2 {
   padding-bottom: 0;
   margin-bottom: 0;
 }
