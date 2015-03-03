@@ -1,8 +1,6 @@
-var Mailgun = require('mailgun-js');
-
-var Emailer = function(data, domain, apiKey) {
+var Emailer = function(data, mailgun) {
   this.data = data;
-  this.mailgun = Mailgun({apiKey: apiKey, domain: domain});
+  this.mailgun = mailgun;
   this.regexps = {
     email: new RegExp('^[^@]+@[^@]+$'),
     text: new RegExp('.{5}')

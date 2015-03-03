@@ -8,6 +8,7 @@ var fs = require('fs'),
     koa = require('koa'),
     UglifyJS = require('uglify-js'),
     CSSMin = require('cssmin'),
+    Mailgun = require('mailgun-js'),
     Emailer = require('./lib/emailer'),
 
     app = koa(),
@@ -24,7 +25,7 @@ app.use(logger());
 app.use(route.post('/api/emailer', function *() {
   var data = yield parse(this);
   data.to = toEmailAddress;
-  var emailer = new Emailer(data, domain, apiKey);
+  var emailer = new Emailer(data, Mailgun({apiKey: apiKey, domain: domain}));
   if (emailer.isValid()) {
     try {
       yield emailer.send();
