@@ -8,7 +8,7 @@ var fs = require('fs'),
     koa = require('koa'),
     UglifyJS = require('uglify-js'),
     CSSMin = require('cssmin'),
-    Mailgun = require('mailgun-js'),
+    Emailer = require('./lib/emailer'),
 
     app = koa(),
     env = process.env.NODE_ENV || 'development',
@@ -22,19 +22,12 @@ var fs = require('fs'),
 app.use(logger());
 
 app.use(route.post('/api/emailer', function *() {
-  var parsedData = yield parse(this),
-      emailRegExp = new RegExp('^[^@]+@[^@]+$'),
-      bodyRegExp = new RegExp('.{5}');
-  if(emailRegExp.test(parsedData.from) && bodyRegExp.test(parsedData.body)) {
-    var mailgun = Mailgun({apiKey: apiKey, domain: domain});
-    var data = {
-      from: parsedData.from,
-      to: toEmailAddress,
-      subject: parsedData.subject,
-      text: parsedData.body
-    };
+  var data = yield parse(this);
+  data.to = toEmailAddress;
+  var emailer = new Emailer(data, domain, apiKey);
+  if (emailer.isValid()) {
     try {
-      yield mailgun.messages().send(data);
+      yield emailer.send();
       this.status = 200;
     } catch(err) {
       console.log(err);
@@ -43,6 +36,7 @@ app.use(route.post('/api/emailer', function *() {
   } else {
     this.status = 404;
   }
+
 }));
 
 app.use(function *(next) {
