@@ -3,7 +3,7 @@ function Alerts(element) {
   this.success = this.element.find('.alert-success');
   this.info = this.element.find('.alert-info');
   this.error = this.element.find('.alert-danger');
-};
+}
 
 Alerts.prototype.showSuccess = function(message) {
   this.success.find('span').html(message);

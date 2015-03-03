@@ -1,4 +1,4 @@
-function QuoteForm(element, url, alerts) {
+this.QuoteForm = function(element, url, alerts) {
   var _ = {
       element: element,
       apiUrl: url,
@@ -70,7 +70,7 @@ function QuoteForm(element, url, alerts) {
         }
         return valid;
       }
-    }
+    };
 
   _.divertKeyPress(_.domComponents.form, _.send);
   _.domComponents.from.on('change', _.validateFrom);
