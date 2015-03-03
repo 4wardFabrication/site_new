@@ -28,22 +28,17 @@ function QuoteForm(element, url, alerts) {
       },
       send: function() {
         if(_.validate()) {
-          _.alerts.showInfo(self.messages.send_pending);
-          $.ajax({
-            type: 'POST',
-            url: _.apiUrl,
-            data: JSON.stringify({
-              subject: _.domComponents.subject.val(),
-              from: _.domComponents.from.val(),
-              body: _.domComponents.body.val()
-            })
-          })
-          .success(function() {
-            _.alerts.showSuccess(_.messages.send_success);
-          })
-          .error(function() {
-            _.alerts.showError(_.messages.send_error);
-          });
+          _.alerts.showInfo(_.messages.send_pending);
+          $.post( _.apiUrl,
+                  { subject: _.domComponents.subject.val(),
+                    from: _.domComponents.from.val(),
+                    body: _.domComponents.body.val() },
+                  function() {
+                    _.alerts.showSuccess(_.messages.send_success);
+                  }
+                ).fail(function() {
+                  _.alerts.showError(_.messages.send_error);
+                });
         }
       },
       formatAsValid: function(field) {

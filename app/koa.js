@@ -3,17 +3,47 @@ var fs = require('fs'),
     jade = require('jade'),
     logger = require('koa-logger'),
     send = require('koa-send'),
+    route = require('koa-route'),
+    parse = require('co-body'),
     koa = require('koa'),
     UglifyJS = require('uglify-js'),
     CSSMin = require('cssmin'),
+    Mailgun = require('mailgun-js'),
 
     app = koa(),
     env = process.env.NODE_ENV || 'development',
+    domain = process.env.MAILGUN_API_DOMAIN,
+    apiKey = process.env.MAILGUN_API_KEY,
+    toEmailAddress = process.env.TO_EMAIL_ADDRESS,
     root = __dirname + '/www',
     port = process.env.PORT || 3000,
     fileCache = {};
 
 app.use(logger());
+
+app.use(route.post('/api/emailer', function *() {
+  var parsedData = yield parse(this),
+      emailRegExp = new RegExp('^[^@]+@[^@]+$'),
+      bodyRegExp = new RegExp('.{5}');
+  if(emailRegExp.test(parsedData.from) && bodyRegExp.test(parsedData.body)) {
+    var mailgun = Mailgun({apiKey: apiKey, domain: domain});
+    var data = {
+      from: parsedData.from,
+      to: toEmailAddress,
+      subject: parsedData.subject,
+      text: parsedData.body
+    };
+    try {
+      yield mailgun.messages().send(data);
+      this.status = 200;
+    } catch(err) {
+      console.log(err);
+      this.status = err.statusCode;
+    }
+  } else {
+    this.status = 404;
+  }
+}));
 
 app.use(function *(next) {
   var candidatePath = root + this.path;
