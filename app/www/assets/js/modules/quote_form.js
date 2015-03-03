@@ -6,7 +6,7 @@ this.QuoteForm = function(element, url, alerts) {
         form: element.find('form'),
         subject: element.find('input#subject'),
         from: element.find('input#from'),
-        body: element.find('textarea#body'),
+        text: element.find('textarea#text'),
         send: element.find('button#send')
       },
       alerts: alerts,
@@ -18,7 +18,7 @@ this.QuoteForm = function(element, url, alerts) {
       },
       validations: {
         email: new RegExp('^[^@]+@[^@]+$'),
-        body: new RegExp('.{5}')
+        text: new RegExp('.{5}')
       },
       divertKeyPress: function(form, cb) {
         form.submit(function() {
@@ -32,7 +32,7 @@ this.QuoteForm = function(element, url, alerts) {
           $.post( _.apiUrl,
                   { subject: _.domComponents.subject.val(),
                     from: _.domComponents.from.val(),
-                    body: _.domComponents.body.val() },
+                    text: _.domComponents.text.val() },
                   function() {
                     _.alerts.showSuccess(_.messages.send_success);
                   }
@@ -51,7 +51,7 @@ this.QuoteForm = function(element, url, alerts) {
         return _.validateField(_.validations.email, _.domComponents.from);
       },
       validateBody: function() {
-        return _.validateField(_.validations.body, _.domComponents.body);
+        return _.validateField(_.validations.text, _.domComponents.text);
       },
       validateField: function(regex, field) {
         if(regex.test(field.val())) {
@@ -74,6 +74,6 @@ this.QuoteForm = function(element, url, alerts) {
 
   _.divertKeyPress(_.domComponents.form, _.send);
   _.domComponents.from.on('change', _.validateFrom);
-  _.domComponents.body.on('change', _.validateBody);
+  _.domComponents.text.on('change', _.validateBody);
   _.domComponents.send.on('click', _.send);
 };
