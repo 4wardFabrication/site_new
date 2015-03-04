@@ -1,23 +1,49 @@
 var Emailer = function(data, mailgun) {
-  this.data = data;
-  this.mailgun = mailgun;
-  this.regexps = {
-    email: new RegExp('^[^@]+@[^@]+$'),
-    text: new RegExp('.{5}')
+  var _ = {
+    data: data,
+    mailgun: mailgun,
+    regexps: {
+      email: new RegExp('^[^@]+@[^@]+$'),
+      text: new RegExp('.{5}')
+    },
+    statusCode: {
+      Ok: 200,
+      BadRequest: 400,
+      BadGateway: 502
+    },
+
+    isValid: function() {
+      return  typeof(_.data) !== 'undefined' &&
+              _.regexps.email.test(_.data.to) &&
+              _.regexps.email.test(_.data.from) &&
+              _.regexps.text.test(_.data.text);
+    },
+
+    send: function() {
+      return new Promise(
+        function(resolve, reject) {
+          if(!_.isValid()) {
+            reject(_.statusCode.BadRequest);
+          } else {
+            _.mailgun.messages().send(_.data, function(err, data) {
+              if(err) {
+                reject(err.statusCode || _.statusCode.BadGateway);
+              } else {
+                resolve(_.statusCode.Ok);
+              }
+            });
+          }
+        }
+      ).then(
+        function(successCode) { return successCode; },
+        function(failureCode) { return failureCode; }
+      );
+    }
   };
-};
 
-Emailer.prototype.isValid = function() {
-  if(!this.data) {
-    return false;
+  return {
+    send: _.send
   }
-  return  this.regexps.email.test(this.data.to) &&
-          this.regexps.email.test(this.data.from) &&
-          this.regexps.text.test(this.data.text);
-};
-
-Emailer.prototype.send = function() {
-  return this.mailgun.messages().send(this.data);
 };
 
 module.exports = Emailer;

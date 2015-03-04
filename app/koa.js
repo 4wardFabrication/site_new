@@ -23,21 +23,10 @@ var fs = require('fs'),
 app.use(logger());
 
 app.use(route.post('/api/emailer', function *() {
-  var data = yield parse(this);
+  var data = yield parse(this),
+      mailgun = Mailgun({apiKey: apiKey, domain: domain});
   data.to = toEmailAddress;
-  var emailer = new Emailer(data, Mailgun({apiKey: apiKey, domain: domain}));
-  if (emailer.isValid()) {
-    try {
-      yield emailer.send();
-      this.status = 200;
-    } catch(err) {
-      console.log(err);
-      this.status = err.statusCode;
-    }
-  } else {
-    this.status = 404;
-  }
-
+  this.status = yield Emailer(data, mailgun).send();
 }));
 
 app.use(function *(next) {
