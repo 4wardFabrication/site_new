@@ -25,7 +25,7 @@ var Emailer = function(data, mailgun) {
           if(!_.isValid()) {
             reject(_.statusCode.BadRequest);
           } else {
-            _.mailgun.messages().send(_.data, function(err, data) {
+            _.mailgun.messages().send(_.data, function(err) {
               if(err) {
                 reject(err.statusCode || _.statusCode.BadGateway);
               } else {
@@ -43,7 +43,7 @@ var Emailer = function(data, mailgun) {
 
   return {
     send: _.send
-  }
+  };
 };
 
 module.exports = Emailer;
