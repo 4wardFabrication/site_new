@@ -6,7 +6,7 @@ var statusCode = {
 };
 
 exports.validScenarios = {
-  testEmailerResponseIsSuccess: function(test) {
+  testEmailerResponseIsOk: function(test) {
     var mailgun = {
           messages: function() {
             return {send:function(data, cb){cb(undefined, data);}}
