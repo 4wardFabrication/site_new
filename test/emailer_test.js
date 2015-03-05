@@ -11,7 +11,7 @@ module.exports = {
     testEmailerResponseIsOk: function(test) {
       var mailgun = {
             messages: function() {
-              return {send:function(data, cb){cb(undefined, data);}}
+              return {send:function(data, cb){cb(undefined, data);}};
             }
           },
           data = {
@@ -31,7 +31,7 @@ module.exports = {
 
   invalidScenarios: {
     setUp: function(callback) {
-      this.mailgun = {},
+      this.mailgun = {};
       this.data = {
         to: 'to@email.com',
         from: 'from@email.com',
@@ -78,7 +78,7 @@ module.exports = {
     testEmailerResponseIsErrorStatusCodeFromMailgun: function(test) {
       this.mailgun = {
         messages: function() {
-          return {send:function(data, cb){cb({statusCode: 504}, data);}}
+          return {send:function(data, cb){cb({statusCode: 504}, data);}};
         }
       };
       test.expect(1);
@@ -92,7 +92,7 @@ module.exports = {
     testEmailerResponseIsBadGateway: function(test) {
       this.mailgun = {
         messages: function() {
-          return {send:function(data, cb){cb({}, data);}}
+          return {send:function(data, cb){cb({}, data);}};
         }
       };
       test.expect(1);
