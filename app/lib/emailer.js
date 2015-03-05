@@ -33,11 +33,7 @@ var Emailer = function(data, mailgun) {
               }
             });
           }
-        }
-      ).then(
-        function(successCode) { return successCode; },
-        function(failureCode) { return failureCode; }
-      );
+        }).catch(function(failureCode) { return failureCode; });
     }
   };
 
