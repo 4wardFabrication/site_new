@@ -31,16 +31,12 @@ module.exports = {
 
   invalidScenarios: {
     setUp: function(callback) {
-      this.mailgun = {
-        messages: function() {
-          return {send:function(data, cb){cb({statusCode: 504}, data);}}
-        }
-      },
+      this.mailgun = {},
       this.data = {
         to: 'to@email.com',
         from: 'from@email.com',
         subject: 'a subject',
-        text: 'Some text',
+        text: 'Some text'
       };
       callback();
     },
@@ -80,10 +76,29 @@ module.exports = {
     },
 
     testEmailerResponseIsErrorStatusCodeFromMailgun: function(test) {
+      this.mailgun = {
+        messages: function() {
+          return {send:function(data, cb){cb({statusCode: 504}, data);}}
+        }
+      };
       test.expect(1);
       Emailer(this.data, this.mailgun).send()
         .then(function(response) {
           test.equals(response, statusCode.MailgunErrorCode, 'Must be Mailgun handled Error Code: 504');
+          test.done();
+        });
+    },
+
+    testEmailerResponseIsBadGateway: function(test) {
+      this.mailgun = {
+        messages: function() {
+          return {send:function(data, cb){cb({}, data);}}
+        }
+      };
+      test.expect(1);
+      Emailer(this.data, this.mailgun).send()
+        .then(function(response) {
+          test.equals(response, statusCode.BadGateway, 'Must be HTTP BadGateway: 502');
           test.done();
         });
     }
