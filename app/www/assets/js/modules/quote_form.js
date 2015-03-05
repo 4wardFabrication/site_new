@@ -50,7 +50,7 @@ this.QuoteForm = function(element, url, alerts) {
       validateFrom: function() {
         return _.validateField(_.validations.email, _.domComponents.from);
       },
-      validateBody: function() {
+      validateText: function() {
         return _.validateField(_.validations.text, _.domComponents.text);
       },
       validateField: function(regex, field) {
@@ -62,7 +62,7 @@ this.QuoteForm = function(element, url, alerts) {
         return false;
       },
       validate: function() {
-        var valid = _.validateFrom() & _.validateBody();
+        var valid = _.validateFrom() & _.validateText();
         if(valid) {
           _.alerts.hide();
         } else {
@@ -74,6 +74,6 @@ this.QuoteForm = function(element, url, alerts) {
 
   _.divertKeyPress(_.domComponents.form, _.send);
   _.domComponents.from.on('change', _.validateFrom);
-  _.domComponents.text.on('change', _.validateBody);
+  _.domComponents.text.on('change', _.validateText);
   _.domComponents.send.on('click', _.send);
 };
