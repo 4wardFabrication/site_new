@@ -36,7 +36,7 @@ module.exports = {
     setUp: function(callback) {
       this.mailgun = {};
       this.data = {
-        to: '@email.com',
+        to: 'to@email.com',
         from: 'from@email.com',
         subject: 'a subject',
         text: 'Some text',
@@ -49,6 +49,7 @@ module.exports = {
     },
 
     testEmailerResponseIsBadRequestWithInvalidToAddress: function(test) {
+      this.data.to = 'invalid';
       test.expect(1);
       Emailer(this.data, this.mailgun).send()
         .then(function(successCode) {
