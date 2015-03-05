@@ -74,6 +74,20 @@ module.exports = {
           test.equals(err, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
           test.done();
         });
+    },
+
+    testEmailerResponseIsBadRequestWithInvalidText: function(test) {
+      this.data.text = 'abc';
+      test.expect(1);
+      Emailer(this.data, this.mailgun).send()
+        .then(function(successCode) {
+          test.equals(successCode, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+          test.done();
+        })
+        .catch(function(err) {
+          test.equals(err, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+          test.done();
+        });
     }
   }
 };
