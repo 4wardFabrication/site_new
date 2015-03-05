@@ -2,7 +2,8 @@ var Emailer = require('../app/lib/emailer.js');
 var statusCode = {
   Ok: 200,
   BadRequest: 400,
-  BadGateway: 502
+  BadGateway: 502,
+  MailgunErrorCode: 504
 };
 
 module.exports = {
@@ -21,12 +22,8 @@ module.exports = {
           };
       test.expect(1);
       Emailer(data, mailgun).send()
-        .then(function(successCode) {
-          test.equals(successCode, statusCode.Ok, 'Must be HTTP Success: 200');
-          test.done();
-        })
-        .catch(function(err) {
-          test.equals(err, statusCode.Ok, 'Must be HTTP Success: 200');
+        .then(function(response) {
+          test.equals(response, statusCode.Ok, 'Must be HTTP Success: 200');
           test.done();
         });
     }
@@ -34,7 +31,11 @@ module.exports = {
 
   invalidScenarios: {
     setUp: function(callback) {
-      this.mailgun = {};
+      this.mailgun = {
+        messages: function() {
+          return {send:function(data, cb){cb({statusCode: 504}, data);}}
+        }
+      },
       this.data = {
         to: 'to@email.com',
         from: 'from@email.com',
@@ -52,12 +53,8 @@ module.exports = {
       this.data.to = 'invalid';
       test.expect(1);
       Emailer(this.data, this.mailgun).send()
-        .then(function(successCode) {
-          test.equals(successCode, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
-          test.done();
-        })
-        .catch(function(err) {
-          test.equals(err, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+        .then(function(response) {
+          test.equals(response, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
           test.done();
         });
     },
@@ -66,12 +63,8 @@ module.exports = {
       this.data.from = 'invalid';
       test.expect(1);
       Emailer(this.data, this.mailgun).send()
-        .then(function(successCode) {
-          test.equals(successCode, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
-          test.done();
-        })
-        .catch(function(err) {
-          test.equals(err, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+        .then(function(response) {
+          test.equals(response, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
           test.done();
         });
     },
@@ -80,12 +73,17 @@ module.exports = {
       this.data.text = 'abc';
       test.expect(1);
       Emailer(this.data, this.mailgun).send()
-        .then(function(successCode) {
-          test.equals(successCode, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+        .then(function(response) {
+          test.equals(response, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
           test.done();
-        })
-        .catch(function(err) {
-          test.equals(err, statusCode.BadRequest, 'Must be HTTP BadRequest: 400');
+        });
+    },
+
+    testEmailerResponseIsErrorStatusCodeFromMailgun: function(test) {
+      test.expect(1);
+      Emailer(this.data, this.mailgun).send()
+        .then(function(response) {
+          test.equals(response, statusCode.MailgunErrorCode, 'Must be Mailgun handled Error Code: 504');
           test.done();
         });
     }
