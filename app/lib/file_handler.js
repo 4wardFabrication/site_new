@@ -15,12 +15,17 @@ var FileHandler = function(filepath) {
 
     isCSS: function() {
       return _.extName === _.ext.css;
+    },
+
+    isLib: function() {
+      return _.filepath.split(path.sep).indexOf('lib') > -1;
     }
   };
 
   return {
     isJS: _.isJS,
-    isCSS: _.isCSS
+    isCSS: _.isCSS,
+    isLib: _.isLib
   };
 };
 

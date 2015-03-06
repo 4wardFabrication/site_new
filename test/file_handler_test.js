@@ -40,6 +40,29 @@ module.exports = {
       test.expect(1);
       test.ok(this.fileHandler.isCSS(), 'Must return true when path points to a CSS file');
       test.done();
+    },
+    testIsLibReturnsFalse: function(test) {
+      test.expect(1);
+      test.ok(!this.fileHandler.isLib(), 'Must return false when path does not include lib');
+      test.done();
+    }
+  },
+
+  nonLibPath: {
+    testIsLibReturnsFalse: function(test) {
+      var fileHandler = FileHandler('some/path/file.txt');
+      test.expect(1);
+      test.ok(!fileHandler.isLib(), 'Must return false when path does not include lib');
+      test.done();
+    }
+  },
+
+  libPath: {
+    testIsLibReturnsTrue: function(test) {
+      var fileHandler = FileHandler('some/path/lib/file.css');
+      test.expect(1);
+      test.ok(fileHandler.isLib(), 'Must return true when path includes lib');
+      test.done();
     }
   },
 };
