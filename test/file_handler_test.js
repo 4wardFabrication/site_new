@@ -19,6 +19,11 @@ module.exports = {
       test.expect(1);
       test.ok(!this.fileHandler.isCSS(), 'Must return false when path points to a CSS file');
       test.done();
+    },
+    testJSHeader: function(test) {
+      test.expect(1);
+      test.equals(this.fileHandler.headers.JS, 'text/javascript; charset=utf-8');
+      test.done();
     }
   },
 
@@ -44,6 +49,11 @@ module.exports = {
     testIsLibReturnsFalse: function(test) {
       test.expect(1);
       test.ok(!this.fileHandler.isLib(), 'Must return false when path does not include lib');
+      test.done();
+    },
+    testCSSHeader: function(test) {
+      test.expect(1);
+      test.equals(this.fileHandler.headers.CSS, 'text/css; charset=utf-8');
       test.done();
     }
   },

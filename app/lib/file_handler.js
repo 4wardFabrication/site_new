@@ -19,13 +19,19 @@ var FileHandler = function(filepath) {
 
     isLib: function() {
       return _.filepath.split(path.sep).indexOf('lib') > -1;
+    },
+
+    headers: {
+      JS: 'text/javascript; charset=utf-8',
+      CSS: 'text/css; charset=utf-8'
     }
   };
 
   return {
     isJS: _.isJS,
     isCSS: _.isCSS,
-    isLib: _.isLib
+    isLib: _.isLib,
+    headers: _.headers
   };
 };
 
