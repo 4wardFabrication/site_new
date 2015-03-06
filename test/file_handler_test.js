@@ -10,19 +10,15 @@ module.exports = {
       callback();
     },
 
-    testIsJSReturnsTrue: function(test) {
+    testNext: function(test) {
       test.expect(1);
-      test.ok(this.fileHandler.isJS(), 'Must return true when path points to a JS file');
+      test.ok(!this.fileHandler.next(), 'Must return false when JS file and non lib path');
       test.done();
     },
-    testIsCSSReturnsFalse: function(test) {
+
+    testGetType: function(test) {
       test.expect(1);
-      test.ok(!this.fileHandler.isCSS(), 'Must return false when path points to a CSS file');
-      test.done();
-    },
-    testJSHeader: function(test) {
-      test.expect(1);
-      test.equals(this.fileHandler.headers.JS, 'text/javascript; charset=utf-8');
+      test.equals(this.fileHandler.getType(), 'text/javascript; charset=utf-8');
       test.done();
     }
   },
@@ -36,42 +32,33 @@ module.exports = {
       callback();
     },
 
-    testIsJSReturnsFalse: function(test) {
+    testNext: function(test) {
       test.expect(1);
-      test.ok(!this.fileHandler.isJS(), 'Must return false when path points to a JS file');
+      test.ok(!this.fileHandler.next(), 'Must return false when CSS file and non lib path');
       test.done();
     },
-    testIsCSSReturnsTrue: function(test) {
-      test.expect(1);
-      test.ok(this.fileHandler.isCSS(), 'Must return true when path points to a CSS file');
-      test.done();
-    },
-    testIsLibReturnsFalse: function(test) {
-      test.expect(1);
-      test.ok(!this.fileHandler.isLib(), 'Must return false when path does not include lib');
-      test.done();
-    },
-    testCSSHeader: function(test) {
-      test.expect(1);
-      test.equals(this.fileHandler.headers.CSS, 'text/css; charset=utf-8');
-      test.done();
-    }
-  },
 
-  nonLibPath: {
-    testIsLibReturnsFalse: function(test) {
-      var fileHandler = FileHandler('some/path/file.txt');
+    testGetType: function(test) {
       test.expect(1);
-      test.ok(!fileHandler.isLib(), 'Must return false when path does not include lib');
+      test.equals(this.fileHandler.getType(), 'text/css; charset=utf-8');
       test.done();
     }
   },
 
   libPath: {
-    testIsLibReturnsTrue: function(test) {
+    testNext: function(test) {
       var fileHandler = FileHandler('some/path/lib/file.css');
       test.expect(1);
-      test.ok(fileHandler.isLib(), 'Must return true when path includes lib');
+      test.ok(fileHandler.next(), 'Must return true when path includes lib');
+      test.done();
+    }
+  },
+
+  nonLibPathNonJSORCSSFile: {
+    testNext: function(test) {
+      var fileHandler = FileHandler('some/path/file.txt');
+      test.expect(1);
+      test.ok(fileHandler.next(), 'Must return true when no lib in path and not a JS or CSS File');
       test.done();
     }
   },

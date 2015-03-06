@@ -1,4 +1,6 @@
-var path = require('path');
+var path = require('path'),
+    UglifyJS = require('uglify-js'),
+    CSSMin = require('cssmin');
 
 var FileHandler = function(filepath) {
   var _ = {
@@ -7,6 +9,10 @@ var FileHandler = function(filepath) {
     ext: {
       js: '.js',
       css: '.css'
+    },
+    type: {
+      js: 'text/javascript; charset=utf-8',
+      css: 'text/css; charset=utf-8'
     },
 
     isJS: function() {
@@ -17,21 +23,25 @@ var FileHandler = function(filepath) {
       return _.extName === _.ext.css;
     },
 
-    isLib: function() {
+    hasLibDirectory: function() {
       return _.filepath.split(path.sep).indexOf('lib') > -1;
     },
 
-    headers: {
-      JS: 'text/javascript; charset=utf-8',
-      CSS: 'text/css; charset=utf-8'
+    getType: function() {
+      var key = _.extName.replace('.', '');
+      return _.type[key];
+    },
+
+    next: function() {
+      return  _.hasLibDirectory() ||
+              ( !_.isJS() &&
+                !_.isCSS() );
     }
   };
 
   return {
-    isJS: _.isJS,
-    isCSS: _.isCSS,
-    isLib: _.isLib,
-    headers: _.headers
+    getType: _.getType,
+    next: _.next
   };
 };
 
