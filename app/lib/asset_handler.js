@@ -2,7 +2,7 @@ var path = require('path'),
     UglifyJS = require('uglify-js'),
     CSSMin = require('cssmin');
 
-var FileHandler = function(filepath) {
+var AssetHandler = function(filepath) {
   var _ = {
     filepath: filepath,
     extName: path.extname(filepath),
@@ -45,4 +45,4 @@ var FileHandler = function(filepath) {
   };
 };
 
-module.exports = FileHandler;
+module.exports = AssetHandler;
