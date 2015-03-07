@@ -1,15 +1,13 @@
 var fs = require('fs'),
-    path = require('path'),
     jade = require('jade'),
     logger = require('koa-logger'),
     send = require('koa-send'),
     route = require('koa-route'),
     parse = require('co-body'),
     koa = require('koa'),
-    UglifyJS = require('uglify-js'),
-    CSSMin = require('cssmin'),
     Mailgun = require('mailgun-js'),
     Emailer = require('./lib/emailer'),
+    AssetHandler = require('./lib/asset_handler'),
 
     app = koa(),
     env = process.env.NODE_ENV || 'development',
@@ -48,27 +46,24 @@ app.use(function *(next) {
 
 if(env === 'production') {
   app.use(function *(next) {
-    if(path.extname(this.path) === '.js') {
-      if(Object.keys(fileCache).indexOf(this.path) == -1) {
-        fileCache[this.path] = UglifyJS.minify(root + this.path).code;
-      }
-      this.type = 'text/javascript; charset=utf-8';
-      this.body = fileCache[this.path];
-    } else {
-      yield next;
-    }
-  });
+    var path = root + this.path;
 
-  app.use(function *(next) {
-    if(path.extname(this.path) === '.css') {
-      if(Object.keys(fileCache).indexOf(this.path) == -1) {
-        var css = fs.readFileSync(root + this.path, 'utf8');
-        fileCache[this.path] = CSSMin(css);
-      }
-      this.type = 'text/css; charset=utf-8';
-      this.body = fileCache[this.path];
+    if(Object.keys(fileCache).indexOf(path) > -1) {
+      this.type = fileCache[path].type;
+      this.body = fileCache[path].body;
     } else {
-      yield next;
+      var fileHandler = AssetHandler(path);
+
+      if (fileHandler.next()) {
+        yield next;
+      } else {
+        fileCache[path] = {
+          type: fileHandler.getType(),
+          body: fileHandler.getBody()
+        };
+        this.type = fileCache[path].type;
+        this.body = fileCache[path].body;
+      }
     }
   });
 }
