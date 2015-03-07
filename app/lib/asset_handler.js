@@ -1,4 +1,5 @@
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     UglifyJS = require('uglify-js'),
     CSSMin = require('cssmin');
 
@@ -10,9 +11,18 @@ var AssetHandler = function(filepath) {
       js: '.js',
       css: '.css'
     },
+    key: path.extname(filepath).replace('.', ''),
     type: {
       js: 'text/javascript; charset=utf-8',
       css: 'text/css; charset=utf-8'
+    },
+    renderers: {
+      js: function() {
+        return UglifyJS.minify(_.filepath).code
+      },
+      css: function() {
+
+      }
     },
 
     isJS: function() {
@@ -27,9 +37,12 @@ var AssetHandler = function(filepath) {
       return _.filepath.split(path.sep).indexOf('lib') > -1;
     },
 
+    getBody: function() {
+      return _.renderers[_.key]();
+    },
+
     getType: function() {
-      var key = _.extName.replace('.', '');
-      return _.type[key];
+      return _.type[_.key];
     },
 
     next: function() {
@@ -40,6 +53,7 @@ var AssetHandler = function(filepath) {
   };
 
   return {
+    getBody: _.getBody,
     getType: _.getType,
     next: _.next
   };

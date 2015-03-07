@@ -1,12 +1,28 @@
-var AssetHandler = require('../app/lib/asset_handler.js');
+var proxyquire = require('proxyquire'),
+    fsStub = {},
+    pathStub = {},
+    UglifyJSStub = {},
+    CSSMinStub = {},
+    AssetHandler = proxyquire('../app/lib/asset_handler.js', {
+      'fs': fsStub,
+      'path': pathStub,
+      'uglify-js': UglifyJSStub,
+      'cssmin': CSSMinStub
+    });
 
 module.exports = {
   jsFile: {
     setUp: function(callback) {
+      UglifyJSStub.minify = function(path) {
+        return {
+          code: path
+        }
+      };
       this.assetHandler = AssetHandler('some/path/file.js');
       callback();
     },
     tearDown: function(callback) {
+      UglifyJSStub = {};
       callback();
     },
 
@@ -19,6 +35,12 @@ module.exports = {
     testGetType: function(test) {
       test.expect(1);
       test.equals(this.assetHandler.getType(), 'text/javascript; charset=utf-8');
+      test.done();
+    },
+
+    testGetBody: function(test) {
+      test.expect(1);
+      test.equals(this.assetHandler.getBody(), 'some/path/file.js');
       test.done();
     }
   },
