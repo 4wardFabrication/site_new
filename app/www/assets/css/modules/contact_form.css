@@ -1,12 +1,12 @@
-section#quoteform {
+section#contactform {
   background: #e0e0e0;
 }
 
-section#quoteform form {
+section#contactform form {
   margin-top: 20px;
 }
 
-section#quoteform button {
+section#contactform button {
   display: inline-block;
   padding: 14px 36px;
   border: none;
@@ -19,17 +19,17 @@ section#quoteform button {
   color: #fff;
 }
 
-section#quoteform .has-error input,
-section#quoteform .has-error textarea {
+section#contactform .has-error input,
+section#contactform .has-error textarea {
   border-color: #a94442;
 }
 
-section#quoteform input {
+section#contactform input {
   height: 47px;
 }
 
-section#quoteform input,
-section#quoteform textarea {
+section#contactform input,
+section#contactform textarea {
   border: 1px solid #c7c7c7;
   border-radius: 2px;
   padding: 10px 15px;

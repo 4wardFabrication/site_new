@@ -1,4 +1,4 @@
-this.QuoteForm = function(element, url, alerts) {
+this.ContactForm = function(element, url, alerts) {
   var _ = {
       element: element,
       apiUrl: url,

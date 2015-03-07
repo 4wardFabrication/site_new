@@ -1,3 +1,3 @@
 (function() {
-    this.QuoteForm.call({}, $('section#quoteform'), "/api/emailer", new Alerts($('div#alerts')));
+    this.ContactForm.call({}, $('section#contactform'), "/api/emailer", new Alerts($('div#alerts')));
 })(this);
