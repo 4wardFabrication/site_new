@@ -16,7 +16,7 @@ module.exports = {
       UglifyJSStub.minify = function(path) {
         return {
           code: path
-        }
+        };
       };
       this.assetHandler = AssetHandler('some/path/file.js');
       callback();
@@ -47,10 +47,18 @@ module.exports = {
 
   cssFile: {
     setUp: function(callback) {
+      fsStub.readFileSync = function(path, encoding) {
+        return path + '-' + encoding;
+      };
+      CSSMinStub.call = function(some, css) {
+        return css;
+      };
       this.assetHandler = AssetHandler('some/path/file.css');
       callback();
     },
     tearDown: function(callback) {
+      fsStub = {};
+      CSSMinStub = {};
       callback();
     },
 
@@ -63,6 +71,12 @@ module.exports = {
     testGetType: function(test) {
       test.expect(1);
       test.equals(this.assetHandler.getType(), 'text/css; charset=utf-8');
+      test.done();
+    },
+
+    testGetBody: function(test) {
+      test.expect(1);
+      test.equals(this.assetHandler.getBody(), 'some/path/file.css-utf8');
       test.done();
     }
   },

@@ -18,10 +18,11 @@ var AssetHandler = function(filepath) {
     },
     renderers: {
       js: function() {
-        return UglifyJS.minify(_.filepath).code
+        return UglifyJS.minify(_.filepath).code;
       },
       css: function() {
-
+        var css = fs.readFileSync(_.filepath, 'utf8');
+        return CSSMin.call({}, css);
       }
     },
 
