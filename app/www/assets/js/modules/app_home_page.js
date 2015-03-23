@@ -42,6 +42,7 @@
 
       successCallback = function() {
         alerts.showSuccess(messages.send_success);
+        domComponents.form.trigger('reset');
       },
 
       failureCallback = function() {
