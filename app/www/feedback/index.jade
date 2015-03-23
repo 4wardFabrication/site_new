@@ -1,0 +1,18 @@
+- var site =  {};
+- site.title = '4ward Fabrications | Feedback';
+- site.description = '4ward Fabrications is a small business offering mobile fabrication and welding services to the community and commercial industries. If it can be made with steel, we can make it to your requirements!';
+- site.author = 'Anthony Sceresini <me-at-ardel.io>';
+
+doctype html
+html(lang="en")
+  head
+    include ../includes/_head.jade
+  body
+    section#navbar
+      include ../includes/_navbar.jade
+    section#feedback-form
+      include ../includes/_feedback_form.jade
+    include ../includes/scripts/_site_wide.jade
+    include ../includes/scripts/_feedback.jade
+    footer
+      include ../includes/_footer.jade

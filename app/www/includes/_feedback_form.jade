@@ -1,0 +1,36 @@
+.jumbotron.light
+  .container-fluid
+    .row
+      .col-sm-10.col-sm-offset-1
+        h1.
+          Feedback
+        h2.
+          Please provide us some general feedback on our service
+  .container-fluid
+    form
+      input#subject.form-control(type='hidden', name='subject', value='Site Feedback Form')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            input#from.form-control(type='email', name='from', placeholder='Your email')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            input#name.form-control(type='text', name='name', placeholder='Your name')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            textarea#comments.form-control(name='text', rows='5', placeholder='Your comments...')
+      .row
+        .col-md-8.col-md-offset-2
+          .form-group
+            button#send.btn.btn-block.btn-default.btn-lg(type='button').
+              Send
+        .col-md-8.col-md-offset-2
+          #alerts
+            .alert.alert-success(role='alert')
+              span
+            .alert.alert-info(role='alert')
+              span
+            .alert.alert-danger(role='alert')
+              span
