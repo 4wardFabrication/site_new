@@ -17,3 +17,10 @@ Form.prototype.validateField = function(field, regex) {
 Form.prototype.send = function(data, success, failure) {
   $.post(this.url, data, success).fail(failure);
 };
+
+Form.prototype.divertKeyPress = function(form, callback) {
+  form.submit(function() {
+    callback();
+    return false;
+  });
+};

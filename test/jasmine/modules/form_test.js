@@ -5,6 +5,16 @@ describe('Form', function() {
     form = new Form('http://api.example.com');
   });
 
+  describe('#divertKeyPress', function() {
+    it('attaches callback to submit action', function() {
+      var formElement = $('<form></form>'),
+          callback = jasmine.createSpy("callback");
+      form.divertKeyPress(formElement, callback);
+      formElement.submit();
+      expect(callback).toHaveBeenCalled();
+    });
+  });
+
   describe('#send', function() {
     beforeEach(function() {
       jasmine.Ajax.install();
