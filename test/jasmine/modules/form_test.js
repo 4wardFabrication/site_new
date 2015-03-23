@@ -68,7 +68,7 @@ describe('Form', function() {
       beforeEach(function() {
         field = $('<input class="has-error" type="email" value="123">');
         var regex = new RegExp('123');
-        valid = form.validateField(field, regex)
+        valid = form.validateField(field, regex);
       });
 
       it('returns true', function() {
@@ -84,7 +84,7 @@ describe('Form', function() {
       beforeEach(function() {
         field = $('<input type="email" value="123">');
         var regex = new RegExp('abc');
-        valid = form.validateField(field, regex)
+        valid = form.validateField(field, regex);
       });
 
       it('returns false', function() {

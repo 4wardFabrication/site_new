@@ -6,11 +6,15 @@ function Form(url) {
   this.formatAsInValid = function(field) {
     field.addClass('has-error');
   };
-};
+}
 
 Form.prototype.validateField = function(field, regex) {
   var valid = regex.test(field.val());
-  valid ? this.formatAsValid(field) : this.formatAsInValid(field);
+  if(valid) {
+    this.formatAsValid(field);
+  } else {
+    this.formatAsInValid(field);
+  }
   return valid;
 };
 
