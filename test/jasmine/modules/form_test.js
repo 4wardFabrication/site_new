@@ -2,7 +2,53 @@ describe('Form', function() {
   var form;
 
   beforeEach(function() {
-    form = new Form();
+    form = new Form('http://api.example.com');
+  });
+
+  describe('#send', function() {
+    beforeEach(function() {
+      jasmine.Ajax.install();
+    });
+
+    it('posts to url', function() {
+      form.send({}, null, null);
+      expect(jasmine.Ajax.requests.mostRecent().url).toBe('http://api.example.com');
+    });
+
+    it('sends data', function() {
+      form.send({email: 'test@email.com'}, null, null);
+      expect(JSON.stringify(jasmine.Ajax.requests.mostRecent().data())).toEqual('{"email":["test@email.com"]}');
+    });
+
+    it('calls success', function() {
+      var success = jasmine.createSpy("success"),
+          failure = jasmine.createSpy("failure");
+      form.send({email: 'test@email.com'}, success, failure);
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'text/plain',
+        "responseText": 'response text'
+      });
+     expect(success).toHaveBeenCalled();
+     expect(failure).not.toHaveBeenCalled();
+    });
+
+    it('calls failure', function() {
+      var success = jasmine.createSpy("success"),
+          failure = jasmine.createSpy("failure");
+      form.send({email: 'test@email.com'}, success, failure);
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 500,
+        "contentType": 'text/plain',
+        "responseText": 'failure'
+      });
+     expect(success).not.toHaveBeenCalled();
+     expect(failure).toHaveBeenCalled();
+    });
+
+    afterEach(function() {
+      jasmine.Ajax.uninstall();
+    });
   });
 
   describe('#validateField', function() {
