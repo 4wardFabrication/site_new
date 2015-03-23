@@ -19,8 +19,8 @@ section#contactform button {
   color: #fff;
 }
 
-section#contactform .has-error input,
-section#contactform .has-error textarea {
+section#contactform input.has-error,
+section#contactform textarea.has-error {
   border-color: #a94442;
 }
 
