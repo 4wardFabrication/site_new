@@ -4,6 +4,7 @@
   "description": "4wardFabrications main site. Written in Node and KoaJS.",
   "main": "index.js",
   "scripts": {
+    "karma": "node_modules/karma/bin/karma start",
     "test": "./test.sh",
     "start": "node --harmony app/koa.js"
   },
