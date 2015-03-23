@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "karma": "node_modules/karma/bin/karma start",
+    "karma_watch": "node_modules/karma/bin/karma start --auto-watch --no-single-run",
     "test": "./test.sh",
     "start": "node --harmony app/koa.js"
   },
