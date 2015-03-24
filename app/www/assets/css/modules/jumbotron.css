@@ -2,7 +2,11 @@
   background: none;
   margin: 0 auto;
   text-align: center;
-  padding: 100px 0 100px 0;
+  padding: 100px 0;
+}
+
+.jumbotron.no-nav {
+  padding: 50px 0;
 }
 
 .jumbotron h1 {

@@ -1,5 +1,6 @@
 @import './general.css';
 @import './modules/navbar.css';
+@import './modules/logo.css';
 @import './modules/header.css';
 @import './modules/jumbotron.css';
 @import './modules/alerts.css';
