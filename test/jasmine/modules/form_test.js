@@ -97,4 +97,38 @@ describe('Form', function() {
     });
   });
 
+  describe('#validateRadio', function() {
+    var field, valid;
+
+    describe('checked', function() {
+      beforeEach(function() {
+        field = $('<div id="rating" class="has-error" ><input type="radio" name="rating" value="123"></div>');
+        field.find('input').prop('checked', true);
+        valid = form.validateRadio(field);
+      });
+
+      it('returns true', function() {
+        expect(valid).toBe(true);
+      });
+
+      it('error class has been removed', function() {
+        expect(field).toEqual($('<div id="rating" class=""><input type="radio" name="rating" value="123"></div>'));
+      });
+    });
+
+    describe('unchecked', function() {
+      beforeEach(function() {
+        field = $('<div id="rating"><input type="radio" name="rating" value="123"></div>');
+        valid = form.validateRadio(field);
+      });
+
+      it('returns false', function() {
+        expect(valid).toBe(false);
+      });
+
+      it('error class has been added', function() {
+        expect(field).toEqual($('<div id="rating" class="has-error"><input type="radio" name="rating" value="123"></div>'));
+      });
+    });
+  });
 });

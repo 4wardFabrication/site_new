@@ -7,14 +7,15 @@
         subject: contactForm.find('input#subject'),
         from: contactForm.find('input#from'),
         name: contactForm.find('input#name'),
+        rating: contactForm.find('#rating'),
         comments: contactForm.find('textarea#comments'),
         send: contactForm.find('button#send')
       },
       messages = {
         invalid_form: '<strong>Uh oh!</strong> We would greatly appreciate if you could please provide an email, your name, a rating and some comments. Thank you!',
-        send_pending: '<strong>Hold up!</strong> We are attempting to send your request.',
-        send_success: '<strong>Got it!</strong> We will respond within 48 hours. Thank you!',
-        send_error: '<strong>Well this is embarrassing!</strong> There was an issue sending your request. We apologise for any inconvenience.'
+        send_pending: '<strong>Hold up!</strong> We are attempting to send your feedback.',
+        send_success: '<strong>Got it!</strong> Thank you! Your feedback is greatly appreciated',
+        send_error: '<strong>Well this is embarrassing!</strong> There was an issue sending your feedback. We apologise for any inconvenience.'
       },
       validations = {
         email: new RegExp('^[^@]+@[^@]+$'),
@@ -34,8 +35,12 @@
         return form.validateField(domComponents.name, validations.name);
       },
 
+      validateRating = function() {
+        return form.validateRadio(domComponents.rating);
+      },
+
       validate = function() {
-        var valid = validateFrom() & validateComments() & validateName();
+        var valid = validateFrom() & validateComments() & validateName() & validateRating();
 
         if(valid) {
           alerts.hide();
@@ -48,8 +53,9 @@
 
       generateText = function() {
         return [
-          'Name: ' + domComponents.name,
-          'Comments: ' + domComponents.comments
+          'Name: ' + domComponents.name.val(),
+          'Rating: ' + domComponents.rating.find('input:checked').val(),
+          'Comments: ' + domComponents.comments.val()
         ].join('\n');
       },
 
@@ -81,5 +87,6 @@
   domComponents.from.on('change', validateFrom);
   domComponents.comments.on('change', validateComments);
   domComponents.name.on('change', validateName);
+  domComponents.rating.on('change', validateRating);
   domComponents.send.on('click', send);
 })(this);

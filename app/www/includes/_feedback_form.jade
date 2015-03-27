@@ -12,15 +12,37 @@
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            input#from.form-control(type='email', name='from', placeholder='Your email')
+            input#from.text.form-control(type='email', name='from', placeholder='Your email')
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            input#name.form-control(type='text', name='name', placeholder='Your name')
+            input#name.text.form-control(type='text', name='name', placeholder='Your name')
+      .row
+        .col-md-8.col-md-offset-2
+          #rating.form-group
+            .container-fluid
+              .row
+                .col-sm-4.col
+                    #rating-heading Rate our service
+                .col-sm-1.col-sm-offset-3
+                  input#rating1.form-control(type='radio', name='rating', value='1')
+                  label(for='rating1') 1
+                .col-sm-1
+                  input#rating2.form-control(type='radio', name='rating', value='2')
+                  label(for='rating2') 2
+                .col-sm-1
+                  input#rating3.form-control(type='radio', name='rating', value='3')
+                  label(for='rating3') 3
+                .col-sm-1
+                  input#rating4.form-control(type='radio', name='rating', value='4')
+                  label(for='rating4') 4
+                .col-sm-1
+                  input#rating5.form-control(type='radio', name='rating', value='5')
+                  label(for='rating5') 5
       .row
         .col-md-8.col-md-offset-2
           .form-group
-            textarea#comments.form-control(name='text', rows='5', placeholder='Your comments...')
+            textarea#comments.text.form-control(name='text', rows='5', placeholder='Your comments...')
       .row
         .col-md-8.col-md-offset-2
           .form-group
