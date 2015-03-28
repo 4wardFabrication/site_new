@@ -8,8 +8,8 @@
         from: contactForm.find('input#from'),
         name: contactForm.find('input#name'),
         ratings: {
-          workmanship: contactForm.find('#workmanship'),
-
+          workmanship: contactForm.find('#ratings-workmanship'),
+          communication: contactForm.find('#ratings-communication'),
         },
         comments: contactForm.find('textarea#comments'),
         send: contactForm.find('button#send')
@@ -42,8 +42,16 @@
         return form.validateRadio(domComponents.ratings.workmanship);
       },
 
+      validateCommunication = function() {
+        return form.validateRadio(domComponents.ratings.communication);
+      },
+
       validate = function() {
-        var valid = validateFrom() & validateComments() & validateName() & validateWorkmanship();
+        var valid = validateFrom() &
+                    validateComments() &
+                    validateName() &
+                    validateWorkmanship() &
+                    validateCommunication();
 
         if(valid) {
           alerts.hide();
@@ -58,6 +66,7 @@
         return [
           'Name: ' + domComponents.name.val(),
           'Workmanship: ' + domComponents.ratings.workmanship.find('input:checked').val(),
+          'Communication: ' + domComponents.ratings.communication.find('input:checked').val(),
           'Comments: ' + domComponents.comments.val()
         ].join('\n');
       },
@@ -91,5 +100,6 @@
   domComponents.comments.on('change', validateComments);
   domComponents.name.on('change', validateName);
   domComponents.ratings.workmanship.on('change', validateWorkmanship);
+  domComponents.ratings.communication.on('change', validateCommunication);
   domComponents.send.on('click', send);
 })(this);
