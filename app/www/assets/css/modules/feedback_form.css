@@ -65,6 +65,13 @@ section#feedback-form #ratings label {
   cursor: pointer;
   border-radius: 2px;
   margin: 0;
+  min-width: 35px;
+}
+
+@media (max-width: 768px) {
+  section#feedback-form #ratings label {
+    margin: 5px 0;
+  }
 }
 
 section#feedback-form #ratings label:hover {
