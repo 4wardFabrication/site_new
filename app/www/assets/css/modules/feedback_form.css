@@ -19,7 +19,7 @@ section#feedback-form button {
   color: #fff;
 }
 
-section#feedback-form #rating.has-error,
+section#feedback-form #ratings > div.has-error,
 section#feedback-form input.text.has-error,
 section#feedback-form textarea.text.has-error {
   border: 1px solid #a94442;
@@ -45,18 +45,18 @@ section#feedback-form textarea.text {
   font-size: 1em;
 }
 
-section#feedback-form #rating {
+section#feedback-form #ratings > div {
   border: 1px solid rgba(255, 255, 255, 0);
   text-align: left;
   border-radius: 2px;
   padding: 5px 0;
 }
 
-section#feedback-form #rating #rating-heading {
+section#feedback-form #ratings > div .heading {
   padding-top: 5px;
 }
 
-section#feedback-form #rating label {
+section#feedback-form #ratings label {
   background-color: rgba(242, 92, 69, .4);
   color: white;
   width: 100%;
@@ -67,14 +67,14 @@ section#feedback-form #rating label {
   margin: 0;
 }
 
-section#feedback-form #rating label:hover {
+section#feedback-form #ratings label:hover {
   background-color: rgba(242, 92, 69, .7);
 }
 
-section#feedback-form #rating input:checked+label {
+section#feedback-form #ratings input:checked+label {
   background-color: rgba(242, 92, 69, 1);
 }
 
-section#feedback-form #rating input {
+section#feedback-form #ratings input {
   display: none;
 }
