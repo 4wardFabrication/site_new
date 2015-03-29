@@ -1,9 +1,20 @@
+/*green: #5fb26a, rgb(97, 179, 102) */
+
 section#feedback-form {
   background: #e0e0e0;
 }
 
 section#feedback-form form {
   margin-top: 20px;
+}
+
+section#feedback-form .legend {
+  background: #5fb26a;
+  border-radius: 2px;
+  margin: 0 0 5px 0;
+  padding: 10px 15px;
+  text-align: left;
+  color: white;
 }
 
 section#feedback-form button {
@@ -57,8 +68,6 @@ section#feedback-form #ratings > div .heading {
 }
 
 section#feedback-form #ratings label {
-  background-color: rgba(242, 92, 69, .4);
-  color: white;
   width: 100%;
   padding: 5px 0 2px 0;
   text-align: center;
@@ -75,11 +84,13 @@ section#feedback-form #ratings label {
 }
 
 section#feedback-form #ratings label:hover {
-  background-color: rgba(242, 92, 69, .7);
+  background-color: rgba(97, 179, 102, .7);
+  color: white;
 }
 
 section#feedback-form #ratings input:checked+label {
-  background-color: rgba(242, 92, 69, 1);
+  background-color: rgba(97, 179, 102, 1);
+  color: white;
 }
 
 section#feedback-form #ratings input {
