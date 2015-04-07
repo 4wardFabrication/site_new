@@ -3,12 +3,13 @@ section#facebook {
   /*background-color: #3b5998;*/
 }
 
-section#facebook a {
+section#facebook div#facebook-message a {
   float: right;
   text-decoration: none;
 }
 
 section#facebook img#facebook-logo {
+  max-width: 125px;
   width: 100%;
 }
 
