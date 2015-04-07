@@ -1,0 +1,46 @@
+section#facebook {
+  background-color: #5fb26a;
+  /*background-color: #3b5998;*/
+}
+
+section#facebook a {
+  text-decoration: none;
+}
+
+section#facebook img#facebook-logo {
+  width: 100%;
+}
+
+section#facebook div#facebook-message {
+  text-align: right;
+}
+
+section#facebook div#facebook-message h2,
+section#facebook div#facebook-message p {
+  display: inline-block;
+}
+
+section#facebook div#facebook-message h2,
+ {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+  section#facebook div#facebook-message {
+    text-align: center;
+  }
+
+  section#facebook div#facebook-message h2 {
+    margin-top: 20px;
+    font-size: 1.3em;
+  }
+
+  section#facebook div#facebook-message p {
+    margin-bottom: 0;
+  }
+
+  section#facebook img#facebook-logo {
+    max-width: 95px;
+  }
+}

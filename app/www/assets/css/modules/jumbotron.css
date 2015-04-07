@@ -16,6 +16,12 @@
   line-height: 1.2em;
 }
 
+@media (max-width: 768px) {
+  .jumbotron h1 {
+    font-size: 2.8em;
+  }
+}
+
 .jumbotron h1 span {
   font-weight: 500;
 }
@@ -36,7 +42,8 @@
   color: #fff;
 }
 
-.jumbotron.dark h2 {
+.jumbotron.dark h2,
+.jumbotron.dark p {
   color: rgba(255,255,255,.8);
 }
 
